@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
+
 <title>凯撒：高卢战争</title>
 
 <style>
@@ -11,31 +13,34 @@ font-family:Arial;
 background:#111;
 color:white;
 margin:0;
-text-align:center;
 }
 
 header{
-background:#7b1e1e;
-padding:20px;
+background:#7a1c1c;
+padding:30px;
+text-align:center;
 }
 
-nav{
+.navbar{
 background:#222;
-padding:10px;
+padding:12px;
+text-align:center;
 }
 
-nav a{
+.navbar a{
 color:white;
 margin:0 15px;
 text-decoration:none;
 }
 
 .hero{
+text-align:center;
 padding:80px;
+background:#1a1a1a;
 }
 
 .playbtn{
-padding:15px 30px;
+padding:16px 40px;
 font-size:20px;
 background:#b03030;
 color:white;
@@ -43,21 +48,49 @@ border:none;
 cursor:pointer;
 }
 
+.section{
+max-width:1000px;
+margin:auto;
+padding:40px;
+}
+
+.screenshots{
+display:flex;
+gap:20px;
+}
+
+.screenshots img{
+width:100%;
+border-radius:8px;
+}
+
+footer{
+background:#222;
+padding:20px;
+text-align:center;
+}
+
 </style>
+
 </head>
 
 <body>
 
 <header>
+
 <h1>凯撒：高卢战争</h1>
 <p>古代战争策略游戏</p>
+
 </header>
 
-<nav>
+<nav class="navbar">
 
 <a href="index.html">首页</a>
 <a href="play.html">在线游戏</a>
+<a href="expansion.html">高卢战争扩展包</a>
 <a href="help.html">帮助中心</a>
+<a href="community.html">玩家社区</a>
+<a href="download.html">下载</a>
 
 </nav>
 
@@ -65,13 +98,44 @@ cursor:pointer;
 
 <h1>征服高卢</h1>
 
-<p>指挥罗马军团与蛮族部落展开史诗战争。</p>
+<p>率领罗马军团，在史诗战场上击败蛮族部落。</p>
 
 <a href="play.html">
-<button class="playbtn">开始游戏</button>
+<button class="playbtn">立即开始游戏</button>
 </a>
 
 </div>
+
+<div class="section">
+
+<h2>游戏截图</h2>
+
+<div class="screenshots">
+
+<img src="images/screenshot1.png">
+<img src="images/screenshot2.png">
+<img src="images/screenshot3.png">
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>高卢战争扩展包</h2>
+
+<p>
+体验凯撒远征高卢的历史战争。
+新增阵营、兵种与随机战场。
+</p>
+
+</div>
+
+<footer>
+
+<p>Caesar: Wars of Gaul</p>
+
+</footer>
 
 </body>
 </html>
