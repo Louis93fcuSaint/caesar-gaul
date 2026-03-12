@@ -1,30 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
-
-<title>在线游戏</title>
-
-<style>
-
-body{
-margin:0;
-background:black;
-}
-
-iframe{
-width:100%;
-height:100vh;
-border:none;
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>凯撒：高卢战记 - 在线游戏</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* 游戏页面特有样式 */
+    .game-container {
+      width: 100%;
+      height: 80vh;
+      border: 2px solid var(--gold-d);
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .game-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .game-info {
+      background: rgba(14,6,1,.8);
+      border: 1px solid var(--gold-d);
+      padding: 15px;
+      margin: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .game-tip {
+      color: var(--gold-l);
+      font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+      .game-container {
+        height: 60vh;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="scr-lines"></div>
+  <div class="screen">
+    <div class="scr-body">
+      
+      <!-- 标题部分 -->
+      <div class="seclbl">PROELIUM · 战场</div>
+      <div class="gtitle" style="font-size: 36px;">在线游戏</div>
+      <div class="gline" style="width: 280px;"></div>
+      
+      <!-- 导航栏 -->
+      <nav class="navbar">
+        <a href="index.html">首页</a>
+        <a href="play.html">在线游戏</a>
+        <a href="expansion.html">高卢战争扩展包</a>
+        <a href="help.html">帮助中心</a>
+        <a href="community.html">玩家社区</a>
+        <a href="download.html">下载</a>
+      </nav>
 
-<iframe src="game/caesar_gaul_v36.html"></iframe>
+      <!-- 游戏信息栏 -->
+      <div class="game-info">
+        <span>⚔ 当前游戏版本: 1.0</span>
+        <span class="game-tip">💡 按 N 键结束回合 | 鼠标拖拽移动地图</span>
+        <a href="help.html" class="btn" style="padding: 8px 20px;">📖 游戏帮助</a>
+      </div>
 
+      <!-- 游戏容器 -->
+      <div class="game-container">
+        <iframe src="game/caesar_gaul_v36.html" title="凯撒：高卢战记游戏"></iframe>
+      </div>
+
+      <!-- 快速提示 -->
+      <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+        <div class="btn" style="padding: 8px 15px; font-size: 12px;" onclick="document.querySelector('iframe').contentWindow.location.reload();">🔄 重新开始</div>
+        <div class="btn" style="padding: 8px 15px; font-size: 12px;" onclick="window.open('help.html#controls', '_blank')">🎮 操作指南</div>
+      </div>
+    </div>
+  </div>
 </body>
-
 </html>
+
