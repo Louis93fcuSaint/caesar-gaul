@@ -2,110 +2,48 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>凯撒：高卢战记 - 高卢战争扩展包</title>
+  <title>扩展包 - 凯撒：高卢战记</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    .expansion-hero {
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/expansion-bg.jpg');
-      background-size: cover;
-      background-position: center;
-      padding: 80px 20px;
-      border: 1px solid var(--gold-d);
-      margin-bottom: 40px;
-    }
-    
-    .feature-list {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .feature-list li {
-      padding: 15px 0;
-      border-bottom: 1px solid rgba(201,168,76,0.2);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      font-family: sans-serif;
-    }
-    
-    .feature-list li:last-child {
-      border-bottom: none;
-    }
-    
-    .feature-list span {
-      color: var(--gold-l);
-      font-size: 20px;
-    }
-    
-    .price-tag {
-      font-size: 32px;
-      color: var(--gold);
-      font-family: 'Cinzel Decorative', serif;
-      text-align: center;
-      padding: 30px;
-      border: 2px solid var(--gold-d);
-      margin: 30px 0;
-    }
-  </style>
 </head>
 <body>
   <div class="scr-lines"></div>
   <div class="screen">
     <div class="scr-body">
-      
-      <div class="seclbl">EXPANSIO · 扩展包</div>
-      <div class="gtitle" style="font-size: 36px;">高卢战争扩展包</div>
-      <div class="gline" style="width: 280px;"></div>
-      
+      <div class="seclbl">EXPANSIO · 扩展</div>
+      <h1 class="gtitle">高卢战争扩展包</h1>
+      <div class="gline"></div>
+
       <nav class="navbar">
         <a href="index.html">首页</a>
         <a href="play.html">在线游戏</a>
-        <a href="expansion.html">高卢战争扩展包</a>
+        <a href="expansion.html" class="active">扩展包</a>
         <a href="help.html">帮助中心</a>
-        <a href="community.html">玩家社区</a>
-        <a href="download.html">下载</a>
       </nav>
 
-      <div class="expansion-hero">
-        <h2 style="color: var(--gold); font-size: 42px; margin-bottom: 20px;">阿莱西亚的陨落</h2>
-        <p style="font-size: 18px; max-width: 600px; margin: 0 auto;">体验凯撒与维钦托利的巅峰对决，见证高卢战争的终章</p>
+      <div class="card" style="border-left-color: var(--gaul); background: linear-gradient(to right, rgba(26,58,139,0.1), rgba(14,6,1,0.9));">
+        <div class="card-title" style="color: #4C8BC9;">⚔️ 阿莱西亚的陨落</div>
+        <p style="font-family:sans-serif; line-height:1.8;">
+          这是《高卢战记》最大的内容更新。你将可以指挥维钦托利的高卢联军，
+          在双重围墙的奇观下对抗凯撒的军团。
+        </p>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
         <div class="card">
-          <div class="card-title">📦 扩展包内容</div>
-          <ul class="feature-list">
-            <li><span>⚔️</span> 6个全新历史战役</li>
-            <li><span>🛡️</span> 高卢阵营专属兵种：贵族骑兵、德鲁伊祭司</li>
-            <li><span>🗺️</span> 随机地图生成器</li>
-            <li><span>🏹</span> 新增8种特色技能</li>
-            <li><span>🎮</span> 双人合作模式</li>
-            <li><span>📜</span> 历史背景剧情</li>
+          <div class="card-title">新增兵种</div>
+          <ul style="list-style:none; font-family:sans-serif; font-size:14px; color:var(--parch-d);">
+            <li style="margin-bottom:8px;">• <b>高卢贵族骑兵</b> - 极高的冲击力</li>
+            <li style="margin-bottom:8px;">• <b>德鲁伊祭司</b> - 提升周围部队士气</li>
+            <li>• <b>日耳曼狂战士</b> - 无视恐惧状态</li>
           </ul>
         </div>
-
         <div class="card">
-          <div class="card-title">⚡ 新兵种预览</div>
-          <div style="margin-bottom: 20px;">
-            <h3 class="card-subtitle">🐗 高卢贵族骑兵</h3>
-            <p style="font-family:sans-serif;">高卢最精锐的骑兵部队，冲锋时造成额外伤害</p>
-          </div>
-          <div>
-            <h3 class="card-subtitle">🌿 德鲁伊祭司</h3>
-            <p style="font-family:sans-serif;">可以治疗友军，诅咒敌军的神秘单位</p>
-          </div>
+          <div class="card-title">全新机制</div>
+          <p style="font-family:sans-serif; font-size:14px;">
+            引入了“补给线”与“冬季损耗”系统。现在你不仅要考虑战术，更要考虑大军的后勤。
+          </p>
+          <a href="download.html" class="btn" style="margin-top:15px;">获取更新</a>
         </div>
-      </div>
-
-      <div class="price-tag">
-        <div style="font-size: 14px; color: var(--parch-d); margin-bottom: 10px;">扩展包价格</div>
-        ¥ 45
-        <div style="font-size: 12px; margin-top: 10px;">包含本体游戏 + 扩展包</div>
-      </div>
-
-      <div style="text-align: center;">
-        <a href="#" class="btn btn-large">立即购买</a>
       </div>
     </div>
   </div>
