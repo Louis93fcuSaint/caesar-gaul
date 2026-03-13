@@ -2,13 +2,279 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>扩展包 - 凯撒：高卢战记</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── 扩展包专属增强样式 ── */
+
+    /* 顶部史诗横幅 */
+    .exp-hero {
+      position: relative;
+      border: 1px solid var(--gold-d);
+      border-left: 4px solid var(--gold);
+      background: linear-gradient(135deg, rgba(139,26,26,0.08) 0%, rgba(14,6,1,0.95) 40%, rgba(26,58,139,0.08) 100%);
+      padding: 36px 28px;
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .exp-hero::before {
+      content: 'EXPANSIO';
+      position: absolute;
+      right: -10px; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cinzel', serif;
+      font-size: 90px;
+      color: rgba(201,168,76,0.04);
+      letter-spacing: 10px;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .exp-hero-sub { font-size:11px; color:var(--gold); letter-spacing:6px; margin-bottom:10px; }
+    .exp-hero-title { font-family:'Cinzel Decorative',serif; font-size:26px; color:var(--gold); margin-bottom:14px; }
+    .exp-hero-desc { font-family:sans-serif; font-size:14px; color:var(--parch-d); line-height:2; max-width:680px; }
+
+    /* 章节标题 */
+    .sec-title {
+      font-family:'Cinzel',serif;
+      font-size:13px;
+      letter-spacing:6px;
+      color:var(--gold);
+      text-transform:uppercase;
+      margin: 42px 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sec-title::after {
+      content:'';
+      flex:1;
+      height:1px;
+      background: linear-gradient(90deg, rgba(201,168,76,0.3), transparent);
+    }
+
+    /* ── 阵营卡片 ── */
+    .faction-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px;
+      margin-bottom: 12px;
+    }
+
+    .faction-card {
+      position: relative;
+      border: 1px solid var(--gold-d);
+      background: rgba(14,6,1,0.92);
+      overflow: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .faction-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 24px rgba(201,168,76,0.1);
+    }
+    .faction-card.germani { border-left: 3px solid #5EAD56; }
+    .faction-card.britanni { border-left: 3px solid #4C8BC9; }
+
+    .faction-img-wrap {
+      width: 100%;
+      height: 160px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.5);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+    .faction-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+      transition: opacity 0.3s, transform 0.4s;
+    }
+    .faction-card:hover .faction-img-wrap img {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+
+    .faction-body { padding: 20px; }
+    .faction-name {
+      font-family:'Cinzel Decorative',serif;
+      font-size:18px;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .faction-name-sub {
+      font-size: 10px;
+      letter-spacing: 5px;
+      color: var(--gold-d);
+      margin-bottom: 14px;
+    }
+    .faction-desc {
+      font-family:sans-serif;
+      font-size:13px;
+      color:var(--parch-d);
+      line-height:1.85;
+      margin-bottom:16px;
+      border-left:2px solid rgba(201,168,76,0.2);
+      padding-left:12px;
+    }
+
+    /* 兵种列表 */
+    .unit-list { list-style:none; }
+    .unit-list li {
+      font-family:sans-serif;
+      font-size:13px;
+      color: var(--parch-d);
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.07);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .unit-list li:last-child { border-bottom: none; }
+    .unit-tag {
+      display:inline-block;
+      padding: 1px 7px;
+      font-size: 9px;
+      letter-spacing: 2px;
+      border: 1px solid;
+      flex-shrink:0;
+      margin-top:1px;
+    }
+    .unit-tag.special { border-color:#C9A84C; color:#C9A84C; }
+    .unit-tag.normal  { border-color:#5a5040; color:#8a7a60; }
+    .unit-name { font-weight:700; color: var(--parch); }
+
+    /* ── 战役卡片 ── */
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    .camp-card {
+      border: 1px solid var(--gold-d);
+      border-left: 3px solid var(--gold);
+      background: rgba(14,6,1,0.92);
+      padding: 22px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .camp-card:hover { border-color: var(--gold); box-shadow: 0 0 20px rgba(201,168,76,0.08); }
+    .camp-card.rhine { border-left-color: #5EAD56; }
+    .camp-card.britanni { border-left-color: #4C8BC9; }
+    .camp-card.random { border-left-color: #9B59B6; }
+
+    .camp-era {
+      font-size:10px;
+      letter-spacing:5px;
+      color:var(--gold-d);
+      margin-bottom:6px;
+    }
+    .camp-title {
+      font-family:'Cinzel Decorative',serif;
+      font-size:20px;
+      color:var(--gold);
+      margin-bottom:12px;
+    }
+    .camp-desc {
+      font-family:sans-serif;
+      font-size:13px;
+      color:var(--parch-d);
+      line-height:1.9;
+    }
+
+    /* 展示图在战役区 */
+    .camp-banner {
+      width:100%;
+      border: 1px solid rgba(201,168,76,0.15);
+      margin-bottom: 20px;
+      display:block;
+    }
+
+    /* ── 多人联机 ── */
+    .multi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .multi-img-wrap {
+      width:100%;
+      border: 1px solid rgba(201,168,76,0.15);
+      margin-bottom: 20px;
+      overflow:hidden;
+    }
+    .multi-img-wrap img {
+      width:100%;
+      display:block;
+      transition: transform 0.4s;
+    }
+    .multi-img-wrap:hover img { transform:scale(1.03); }
+
+    .multi-mode-card {
+      border: 1px solid var(--gold-d);
+      border-left: 3px solid var(--gold);
+      background: rgba(14,6,1,0.92);
+      padding: 22px;
+      transition: border-color 0.25s;
+    }
+    .multi-mode-card:hover { border-color:var(--gold); }
+    .multi-mode-card.ffa  { border-left-color: #E67E22; }
+    .multi-mode-card.team { border-left-color: #E8C96A; }
+
+    .mode-icon { font-size:28px; margin-bottom:10px; }
+    .mode-name {
+      font-family:'Cinzel Decorative',serif;
+      font-size:18px;
+      color:var(--gold);
+      margin-bottom:6px;
+    }
+    .mode-sub {
+      font-size:11px;
+      letter-spacing:3px;
+      color:var(--gold-d);
+      margin-bottom:12px;
+    }
+    .mode-desc { font-family:sans-serif; font-size:13px; color:var(--parch-d); line-height:1.85; }
+
+    /* 底部公告横幅 */
+    .ann-box {
+      margin-top:44px;
+      border: 1px solid var(--gold);
+      background: rgba(201,168,76,0.06);
+      padding:20px 24px;
+      text-align:center;
+      font-family:sans-serif;
+      font-size:14px;
+      color: var(--parch-d);
+      line-height:1.8;
+    }
+    .ann-box .ann-head {
+      font-family:'Cinzel',serif;
+      font-size:12px;
+      letter-spacing:4px;
+      color:var(--gold);
+      margin-bottom:8px;
+    }
+
+    /* ──「卡片标题」统一 */
+    .card-title {
+      font-family:'Cinzel',serif;
+      font-size:16px;
+      color:var(--gold-l);
+      letter-spacing:2px;
+      margin-bottom:14px;
+    }
+  </style>
 </head>
 <body>
   <div class="scr-lines"></div>
   <div class="screen">
     <div class="scr-body">
+
       <div class="seclbl">EXPANSIO · 扩展</div>
       <h1 class="gtitle">高卢战争扩展包</h1>
       <div class="gline"></div>
@@ -22,36 +288,159 @@
         <a href="download.html">下载</a>
       </nav>
 
-      <div class="card" style="border-left-color: var(--gaul); background: linear-gradient(to right, rgba(26,58,139,0.1), rgba(14,6,1,0.9));">
-        <div class="card-title" style="color: #4C8BC9;">⚔️ 边境的咆哮</div>
-        <p style="font-family:sans-serif; line-height:1.8;">
-          罗马的边界不再局限于高卢。凯撒的目光已投向波涛汹涌的北海与森林密布的莱茵河东岸。
+      <!-- 顶部史诗简介 -->
+      <div class="exp-hero">
+        <div class="exp-hero-sub">IMPERIUM SINE FINE · 无止境的帝国</div>
+        <div class="exp-hero-title">边境的咆哮</div>
+        <p class="exp-hero-desc">
+          罗马的边界不再局限于高卢。凯撒的目光已投向波涛汹涌的北海与森林密布的莱茵河东岸。两个未被征服的蛮族在此等候——拥抱黑暗密林的日耳曼战斧，以及驰骋白垩崖岸的不列颠战车。帝国的荣光，将由你亲手书写。
         </p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-        <div class="card">
-          <div class="card-title">新增阵营</div>
-          <ul style="list-style:none; font-family:sans-serif; font-size:14px; color:var(--parch-d);">
-            <li style="margin-bottom:8px;">• <b>日耳曼部落</b> - 森林中的伏击大师，拥有极强的冲击力。</li>
-            <li style="margin-bottom:8px;">• <b>不列颠诸王</b> - 驱策独特的凯尔特战车，机动性的噩梦。</li>
-          </ul>
+      <!-- ══════════ 一、新增阵营 ══════════ -->
+      <div class="sec-title">Ⅰ · 新增阵营</div>
+
+      <div class="faction-grid">
+
+        <!-- 日耳曼 -->
+        <div class="faction-card germani">
+          <div class="faction-img-wrap">
+            <img src="images/GEMANI.png" alt="日耳曼部落">
+          </div>
+          <div class="faction-body">
+            <div class="faction-name">日耳曼部落</div>
+            <div class="faction-name-sub">GERMANI TRIBUS</div>
+            <p class="faction-desc">
+              莱茵河东岸的不羁狂徒，以雷霆般的冲锋将敌阵撕碎。密林即是他们的盟友，伏击是他们的艺术。
+            </p>
+            <ul class="unit-list">
+              <li>
+                <span class="unit-tag normal">普通</span>
+                <span><span class="unit-name">部落斧战士</span> — 近战主力，冲锋时攻击+2</span>
+              </li>
+              <li>
+                <span class="unit-tag normal">普通</span>
+                <span><span class="unit-name">森林游击手</span> — 林地地形无移动惩罚，可隐匿</span>
+              </li>
+              <li>
+                <span class="unit-tag special">特殊</span>
+                <span><span class="unit-name">狂战祭司</span> — 为周围2格友军提供攻击加成 +1</span>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-title">全新战役脚本</div>
-          <ul style="list-style:none; font-family:sans-serif; font-size:14px; color:var(--parch-d);">
-            <li style="margin-bottom:8px;">• <b>跨过莱茵河</b> - 搭建木桥，深入蛮荒森林挑战苏维汇人。</li>
-            <li style="margin-bottom:8px;">• <b>远征不列颠</b> - 跨海作战，在白垩悬崖之下建立登陆场。</li>
-            <li>• <b>随机地图模式</b> - 无尽的战场生成，每一局都是全新挑战。</li>
-          </ul>
+
+        <!-- 不列颠 -->
+        <div class="faction-card britanni">
+          <div class="faction-img-wrap">
+            <img src="images/BRITANNI.png" alt="不列颠部落">
+          </div>
+          <div class="faction-body">
+            <div class="faction-name">不列颠部落</div>
+            <div class="faction-name-sub">BRITANNI TRIBUS</div>
+            <p class="faction-desc">
+              凯尔特战车驰骋于白垩悬崖之间，弓弩手居高俯射。机动与骚扰，是这片岛屿赋予他们的天赋。
+            </p>
+            <ul class="unit-list">
+              <li>
+                <span class="unit-tag normal">普通</span>
+                <span><span class="unit-name">凯尔特战车兵</span> — 每回合可额外移动1格</span>
+              </li>
+              <li>
+                <span class="unit-tag normal">普通</span>
+                <span><span class="unit-name">崖岸弓弩手</span> — 射程3，高地加成+1</span>
+              </li>
+              <li>
+                <span class="unit-tag special">特殊</span>
+                <span><span class="unit-name">德鲁伊</span> — 为周围2格友军提供防御加成 +1</span>
+              </li>
+            </ul>
+          </div>
         </div>
+
       </div>
 
-      <div class="tip-box" style="text-align: center; border: 1px solid var(--gold); background: rgba(201,168,76, 0.1);">
-        <b>🏛️ 公告：</b> 扩展包内容已免费纳入最新版本（v3.6），无需额外安装。
+      <div class="tip-box">
+        两大阵营各拥有 <b>4种标准兵种 + 1种特殊兵种</b>。特殊兵种每局限派1名，合理运用可扭转战局。
       </div>
+
+      <!-- ══════════ 二、全新战役 ══════════ -->
+      <div class="sec-title">Ⅱ · 全新战役脚本</div>
+
+      <!-- 战役大图预览 -->
+      <img src="images/NOUVEAUX_combats.png" alt="新战役预览" class="camp-banner" style="border-radius:0;">
+
+      <div class="campaign-grid">
+
+        <div class="camp-card rhine">
+          <div class="camp-era">公元前 55 年 · CROSSING THE RHINE</div>
+          <div class="camp-title">越过莱茵河</div>
+          <p class="camp-desc">
+            凯撒十天内建成横跨莱茵河的木桥，率军进入日耳曼密林。本战役模拟这场震惊蛮族的工程壮举——玩家需在有限回合内搭建浮桥据点，深入森林挑战苏维汇人，并在撤退前摧毁桥梁。
+          </p>
+        </div>
+
+        <div class="camp-card britanni">
+          <div class="camp-era">公元前 55 年 · BRITANNIA EXPEDITION</div>
+          <div class="camp-title">远征不列颠</div>
+          <p class="camp-desc">
+            凯撒两次登陆不列颠岛。岛上部落以战车冲锋迎击，海岸要塞之战，历史性远征。玩家须在海滩建立登陆阵地，对抗不列颠战车的骚扰，最终攻破泰晤士河北岸的部落营地。
+          </p>
+        </div>
+
+        <div class="camp-card random" style="grid-column: 1 / -1;">
+          <div class="camp-era">PROELIUM FORTUITO · 随机战场</div>
+          <div class="camp-title">随机地图战役</div>
+          <p class="camp-desc">
+            由命运之神掷骰，山川河流随机生成，四大阵营自由选择。地图生成算法确保每一局的地形分布、资源点位与战略要道皆不相同——每一局皆是全新挑战，真正考验你的临机应变之道。
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ══════════ 三、多人联机 ══════════ -->
+      <div class="sec-title">Ⅲ · 多人联机模式</div>
+
+      <div class="multi-img-wrap">
+        <img src="images/Multijoueur.png" alt="多人联机模式">
+      </div>
+
+      <div class="multi-grid">
+
+        <div class="multi-mode-card ffa">
+          <div class="mode-icon">⚡</div>
+          <div class="mode-name">三人混战</div>
+          <div class="mode-sub">FFA · 3名玩家 · 三方乱战无结盟</div>
+          <p class="mode-desc">
+            三支势力同场厮杀，任何外交都是欺骗，消灭其余两方才是唯一胜利。战场上瞬息万变，背刺与反杀是家常便饭。
+          </p>
+        </div>
+
+        <div class="multi-mode-card team">
+          <div class="mode-icon">🏆</div>
+          <div class="mode-name">四人 2v2</div>
+          <div class="mode-sub">TEAM · 4名玩家 · 组队团队协作</div>
+          <p class="mode-desc">
+            两队各二人，共享视野，协同作战。队友的失守就是你的溃败——沟通、补位、夹击，方能赢得最终胜利。
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ══════════ 底部公告 ══════════ -->
+      <div class="ann-box" style="margin-top:44px;">
+        <div class="ann-head">🏛️ NUNTIUS PUBLICUS · 官方公告</div>
+        扩展包全部内容已<b>免费</b>纳入最新版本 <b>v3.6</b>，无需额外安装。<br>
+        下载最新版本即可体验日耳曼、不列颠两大阵营及全部新战役。
+      </div>
+
+      <footer style="margin-top:60px; padding:40px 0; border-top:1px solid rgba(201,168,76,0.1); text-align:center;">
+        <p style="font-size:10px; letter-spacing:5px; color:var(--gold-d);">
+          CAESAR · BELLUM GALLICUM © 2024 ALL RIGHTS RESERVED
+        </p>
+      </footer>
+
     </div>
   </div>
 </body>
 </html>
-
